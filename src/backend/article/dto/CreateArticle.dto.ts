@@ -28,4 +28,5 @@ class CreateArticleDto {
   a_view?: number;
 }
 
+
 export default CreateArticleDto;
