@@ -6,7 +6,7 @@ import UpdatePhoneUserDto from './dto/UpdatePhoneUser.dto';
 import * as bcrypt from 'bcrypt';
 import UpdatePasswordUserDto from './dto/UpdatePassword.dto';
 import UpdateEmailDto from './dto/UpdateEmail.dto';
-import RegisterDto from '@auth/dto/Register.dto';
+import RegisterDto from 'src/auth/dto/register.dto';
 
 @Injectable()
 export class UserService {

@@ -15,7 +15,7 @@ import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { ResponseData } from 'src/common/response/ResponseData';
 import * as bcrypt from 'bcrypt';
-import RegisterDto from '@dto/Register.dto';
+import RegisterDto from './dto/register.dto';
 
 @Controller('auth')
 @ApiTags('Auth')
