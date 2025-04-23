@@ -2,11 +2,11 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Not, Repository } from 'typeorm';
 import UserEntity from 'src/entities/user.entity';
-import RegisterDto from 'src/auth/dto/Register.dto';
 import UpdatePhoneUserDto from './dto/UpdatePhoneUser.dto';
 import * as bcrypt from 'bcrypt';
 import UpdatePasswordUserDto from './dto/UpdatePassword.dto';
 import UpdateEmailDto from './dto/UpdateEmail.dto';
+import RegisterDto from '@auth/dto/Register.dto';
 
 @Injectable()
 export class UserService {

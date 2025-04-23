@@ -14,8 +14,8 @@ import { LocalAuthGuard } from './local-auth.guard';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { ResponseData } from 'src/common/response/ResponseData';
-import RegisterDto from './dto/Register.dto';
 import * as bcrypt from 'bcrypt';
+import RegisterDto from '@dto/Register.dto';
 
 @Controller('auth')
 @ApiTags('Auth')
