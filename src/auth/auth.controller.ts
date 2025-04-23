@@ -7,10 +7,8 @@ import {
   HttpStatus,
   HttpException,
   Body,
-  RawBody,
   BadRequestException,
 } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 import { ApiTags } from '@nestjs/swagger';
 import { LocalAuthGuard } from './local-auth.guard';
 import { AuthService } from './auth.service';
