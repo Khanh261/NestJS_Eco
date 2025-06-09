@@ -15,9 +15,7 @@ export class UserService {
 
   async findOneByUsername(username: string) {
     return this.usertRepository.findOne({
-      where: {
-        username: username,
-      },
+      where: { username },
     });
   }
 

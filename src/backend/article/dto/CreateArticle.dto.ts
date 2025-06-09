@@ -5,6 +5,10 @@ class CreateArticleDto {
   @IsNotEmpty()
   a_name: string;
 
+  @IsString()
+  @IsNotEmpty()
+  a_slug: string;
+
   @IsOptional()
   @IsString()
   @IsNotEmpty()
@@ -27,6 +31,5 @@ class CreateArticleDto {
   @IsOptional()
   a_view?: number;
 }
-
 
 export default CreateArticleDto;

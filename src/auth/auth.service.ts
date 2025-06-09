@@ -3,6 +3,8 @@ import { JwtService } from '@nestjs/jwt';
 import { UserService } from 'src/frontend/user/user.service';
 import * as bcrypt from 'bcrypt';
 import RegisterDto from './dto/register.dto';
+import { EXPIRES_TIME } from './constants';
+import * as moment from 'moment';
 
 @Injectable()
 export class AuthService {
@@ -13,36 +15,35 @@ export class AuthService {
 
   async validateUser(username: string, password: string): Promise<any> {
     const user = await this.userService.findOneByUsername(username);
-    console.log('---------user: ', user);
-    if (user) {
-      const isMatchPassword = await bcrypt.compare(password, user.password);
-      if (isMatchPassword) {
-        const { password, ...result } = user;
-        return result;
-      }
-      throw new HttpException(
-        'Password ${password} not match',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
-    }
-    throw new HttpException(
-      'User ${username} not found',
-      HttpStatus.INTERNAL_SERVER_ERROR,
-    );
+
+    if (!user) return null;
+
+    const isMatchPassword = await bcrypt.compare(password, user.password);
+
+    if (!isMatchPassword) return null;
+
+    const plainUser = { ...user };
+    delete plainUser.password;
+
+    return plainUser;
   }
 
   async login(user: any) {
     console.log('---------Auth Service Login: ', user);
-    const payload = { username: user.phone, sub: user.id };
+    const payload = { username: user.username, sub: user.id };
     const refresh_token = this.jwtService.sign(payload, {
-      expiresIn: '1d',
+      expiresIn: EXPIRES_TIME,
     });
 
     this.userService.saveRefreshToken(refresh_token, user.id);
+    const expiresTime = 100;
+    const { password, ...safeUser } = user;
 
     return {
       access_token: this.jwtService.sign(payload),
       refresh_token: refresh_token,
+      user: safeUser,
+      expires_in: moment().add(expiresTime, 'days'),
     };
   }
 

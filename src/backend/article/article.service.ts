@@ -35,8 +35,42 @@ export class ArticleService {
     });
   }
 
- async update(id: number, articleDto: UpdateArticleDto) {
+  async update(id: number, articleDto: UpdateArticleDto) {
     await this.articleRepository.update(id, articleDto);
     return await this.show(id);
+  }
+
+  //delete article
+  async delete(id: number) {
+    const article = await this.show(id);
+    if (!article) {
+      throw new Error('Article not found');
+    }
+    await this.articleRepository.delete(id);
+    return { message: 'Article deleted successfully' };
+  }
+
+  async search(query: string) {
+    const results = await this.articleRepository.find({
+      where: [
+        { a_name: query },
+        { a_description: query },
+        { a_content: query },
+      ],
+    });
+
+    return results;
+  }
+
+  async getDetailArticle(id: number) {
+    const article = await this.articleRepository.findOne({
+      where: { id: id },
+    });
+
+    if (!article) {
+      throw new Error('Article not found');
+    }
+
+    return article;
   }
 }

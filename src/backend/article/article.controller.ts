@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpStatus,
   Param,
@@ -69,5 +70,42 @@ export class ArticleController {
   ) {
     const response = await this.articleService.update(id, updatePArticleDto);
     return new ResponseData(HttpStatus.OK, response, 'update article success');
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete(':id')
+  async delete(@Param('id', ParseIntPipe) id: number) {
+    const response = await this.articleService.delete(id);
+    return new ResponseData(HttpStatus.OK, response, 'Delete article success');
+  }
+
+  @Get('search')
+  async search(@Req() request: Request) {
+    const paging = {
+      page: request.query.page || 1,
+      page_size: request.query.page_size || 10,
+    };
+
+    const filter = {
+      pro_name: request.query.pro_name || ' ',
+    };
+
+    const response = await this.articleService.getListArticle(paging, filter);
+
+    const [data, total] = response;
+
+    const pagingData = new Paging(
+      Number(paging.page),
+      Number(paging.page_size),
+      total,
+    );
+
+    return new ResponseData(HttpStatus.OK, data, 'success', pagingData);
+  }
+
+  @Get('detail/:id')
+  async getDetailArticle(@Param('id', ParseIntPipe) id: number) {
+    const data = await this.articleService.getDetailArticle(id);
+    return new ResponseData(HttpStatus.OK, data, 'success');
   }
 }
