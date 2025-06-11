@@ -9,6 +9,8 @@ import { UploadModule } from './upload/upload.module';
 import * as Joi from '@hapi/joi';
 import { APP_FILTER } from '@nestjs/core';
 import { ExceptionsLoggerFilter } from './utils/exceptionsLogger.filter';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -29,6 +31,9 @@ import { ExceptionsLoggerFilter } from './utils/exceptionsLogger.filter';
     DatabaseModule,
     AuthModule,
     UploadModule,
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
+    }),
   ],
   controllers: [AppController],
   providers: [

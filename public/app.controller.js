@@ -13,8 +13,8 @@ exports.AppController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 let AppController = class AppController {
-    getHello() {
-        return 'Hello Khanh!';
+    getRoot() {
+        return 'Welcome to your NestJS app!';
     }
 };
 exports.AppController = AppController;
@@ -23,7 +23,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", String)
-], AppController.prototype, "getHello", null);
+], AppController.prototype, "getRoot", null);
 exports.AppController = AppController = __decorate([
     (0, common_1.Controller)(),
     (0, swagger_1.ApiTags)('Home')

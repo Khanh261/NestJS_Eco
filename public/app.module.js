@@ -18,6 +18,8 @@ const upload_module_1 = require("./upload/upload.module");
 const Joi = require("@hapi/joi");
 const core_1 = require("@nestjs/core");
 const exceptionsLogger_filter_1 = require("./utils/exceptionsLogger.filter");
+const serve_static_1 = require("@nestjs/serve-static");
+const path_1 = require("path");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -41,6 +43,9 @@ exports.AppModule = AppModule = __decorate([
             database_module_1.DatabaseModule,
             auth_module_1.AuthModule,
             upload_module_1.UploadModule,
+            serve_static_1.ServeStaticModule.forRoot({
+                rootPath: (0, path_1.join)(__dirname, '..', 'public'),
+            }),
         ],
         controllers: [app_controller_1.AppController],
         providers: [
