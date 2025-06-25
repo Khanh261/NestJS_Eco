@@ -10,8 +10,8 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
 
   const config = new DocumentBuilder()
-    .setTitle('Dogs example')
-    .setDescription('The cats API description')
+    .setTitle('money example')
+    .setDescription('The money API description')
     .setVersion('1.0')
     .addTag('cats')
     .build();
